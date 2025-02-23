@@ -1,10 +1,9 @@
-import { ModeToggle } from "./components/theme-btn";
+import { Nav } from "./components";
 
 export default function Home() {
   return (
-    <div className="text-sky-400">
-      Hello, Ready 123!
-      <ModeToggle />
+    <div className="max-w-2xl m-auto w-full p-2 md:py-2 h-svh">
+      <Nav />
     </div>
   );
 }
