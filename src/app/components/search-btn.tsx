@@ -59,6 +59,11 @@ export function SearchButton() {
                 City
               </Label>
               <Input
+                onKeyUp={async (e) => {
+                  if (e.key == "Enter") {
+                    await CityAutoCompleteHandler();
+                  }
+                }}
                 ref={CityInp}
                 className="border-0 focus-visible:ring-offset-0 focus-visible:ring-0"
                 id="city"
