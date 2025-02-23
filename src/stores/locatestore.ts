@@ -44,13 +44,13 @@ export const useLocStore = create(
         set({
           LocateCity: {
             name: newCity.name,
-            lat: newCity.name,
+            lat: newCity.lat,
             long: newCity.long,
           },
         }),
     }),
     {
-      name: "location-storage",
+      name: "weather-loc-store",
     },
   ),
 );

@@ -1,32 +1,37 @@
 "use client";
 import { Search, Navigation } from "lucide-react";
 
-import { Button } from "../../components/ui/button";
+import { Button } from "@components/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "../../components/ui/dialog";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
+} from "@components/components/ui/dialog";
+import { Input } from "@components/components/ui/input";
+import { Label } from "@components/components/ui/label";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useRef, useState } from "react";
-import { ReqCityNames } from "../../lib/reqcity";
+import { ReqCityNames } from "@components/lib/reqcity";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../components/ui/tooltip";
+} from "@components/components/ui/tooltip";
+
+import { useLocStore } from "@components/stores/locatestore";
+import { useStore } from "zustand";
 
 export function SearchButton() {
   const [tempCity, setTempCity] = useState<any[]>([]);
   const CityInp = useRef<HTMLInputElement>(null);
+
+  const setLocCity = useStore(useLocStore, (state) => state.setLocateCity);
+
   const CityAutoCompleteHandler = async () => {
     const name = CityInp.current!.value;
     const res = await ReqCityNames(name);
-    console.log(res);
     setTempCity(res);
   };
 
@@ -82,19 +87,33 @@ export function SearchButton() {
                 <ul className="text-xs flex gap-4 flex-col">
                   {tempCity.map((el) => (
                     <li
-                      className="flex items-center hover:cursor-pointer hover:brightness-50 flex-row flex-wrap gap-2"
+                      className="flex items-center hover:cursor-pointer  flex-row flex-wrap gap-2"
                       key={el.place_id}
                     >
                       <Navigation size={12} />
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
-                            <span>
-                              {el.display_name.length > 35
-                                ? (el.display_name as string).slice(0, 35) +
-                                  "..."
-                                : el.display_name}
-                            </span>
+                            <Button
+                              variant={"ghost"}
+                              size={"sm"}
+                              onClick={() => {
+                                console.log(el);
+                                setLocCity({
+                                  name: el.address.city || el.display_place,
+                                  long: el.lon,
+                                  lat: el.lat,
+                                });
+                              }}
+                              asChild
+                            >
+                              <span>
+                                {el.display_name.length > 35
+                                  ? (el.display_name as string).slice(0, 35) +
+                                    "..."
+                                  : el.display_name}
+                              </span>
+                            </Button>
                           </TooltipTrigger>
 
                           <TooltipContent className="max-w-xs">
