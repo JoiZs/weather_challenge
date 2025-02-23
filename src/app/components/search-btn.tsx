@@ -18,18 +18,26 @@ export function SearchButton() {
           <Search />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md w-full backdrop-blur backdrop:blur-xl">
+      <DialogContent className="max-w-md w-full p-0 py-4">
         <DialogTitle className="hidden">Search</DialogTitle>
         <div className="flex items-center space-x-2 px-4">
-          <div className="grid flex-1 gap-2">
+          <div className="flex flex-1 flex-col">
             <Label htmlFor="city" className="sr-only">
               City
             </Label>
-            <Input id="city" placeholder="Search by city..." />
+            <Input
+              className="border-0 focus-visible:ring-offset-0 focus-visible:ring-0"
+              id="city"
+              placeholder="Search by city..."
+            />
+            <div className="px-4">
+              <ul>
+                <li>1</li>
+                <li>1</li>
+                <li>1</li>
+              </ul>
+            </div>
           </div>
-          <Button type="submit" size="sm" className="px-3">
-            <Search />
-          </Button>
         </div>
       </DialogContent>
     </Dialog>
