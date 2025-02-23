@@ -1,4 +1,5 @@
-import { Copy, Search } from "lucide-react";
+"use client";
+import { Search } from "lucide-react";
 
 import { Button } from "../../components/ui/button";
 import {
@@ -9,8 +10,15 @@ import {
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { ChangeEvent } from "react";
+import { ReqCityNames } from "../../lib/reqcity";
 
 export function SearchButton() {
+  const CityAutoCompleteHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    const name = e.currentTarget.value;
+    await ReqCityNames(name);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -26,6 +34,7 @@ export function SearchButton() {
               City
             </Label>
             <Input
+              onChange={CityAutoCompleteHandler}
               className="border-0 focus-visible:ring-offset-0 focus-visible:ring-0"
               id="city"
               placeholder="Search by city..."
