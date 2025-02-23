@@ -8,8 +8,11 @@ export const ReqCityNames = async (name: string): Promise<any[]> => {
       method: "get",
       url: url,
     });
+
+    // return array of city names with 3 limit
     return res.data as any[];
   } catch (error) {
+    // If any request errors occur: return empty array
     return [];
   }
 };
