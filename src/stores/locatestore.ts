@@ -10,26 +10,7 @@ type LocateCity = {
 interface LocStoreInterface {
   LocateCity: LocateCity;
   setLocateCity: (nc: LocateCity) => void;
-  setUpDefault: () => void;
 }
-
-// const useLocStore = create<LocStoreInterface>((set) => ({
-//   LocateCity: {
-//     name: "New York",
-//     lat: "40.730610",
-//     long: "-73.935242",
-//   },
-//   setUpDefault: () => {},
-//   setLocateCity: (newCity: LocateCity) =>
-//     set({
-//       LocateCity: {
-//         name: newCity.name,
-//         lat: newCity.name,
-//         long: newCity.long,
-//       },
-//     }),
-// }));
-//
 
 export const useLocStore = create(
   persist<LocStoreInterface>(
@@ -39,7 +20,6 @@ export const useLocStore = create(
         lat: "40.730610",
         long: "-73.935242",
       },
-      setUpDefault: () => {},
       setLocateCity: (newCity: LocateCity) =>
         set({
           LocateCity: {
