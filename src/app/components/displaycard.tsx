@@ -34,7 +34,7 @@ const DisplayCard = (props: Props) => {
     }
   }, [loc]);
 
-  if (!currTemp || !loc) return <>Hello</>;
+  if (!currTemp || !loc) return <div className="flex justify-center items-center h-full"><span>Loading</span></div>
 
   return (
     <div className="flex-1 grid grid-cols-1 grid-rows-3 md:grid-cols-2 md:grid-rows-2">

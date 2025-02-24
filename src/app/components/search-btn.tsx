@@ -10,7 +10,7 @@ import {
 } from "@components/components/ui/dialog";
 import { Input } from "@components/components/ui/input";
 import { Label } from "@components/components/ui/label";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { DialogClose, DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useRef, useState } from "react";
 import { ReqCityNames } from "@components/lib/reqcity";
 import {
@@ -94,6 +94,7 @@ export function SearchButton() {
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
+                          <DialogClose asChild>    
                             <Button
                               variant={"ghost"}
                               size={"sm"}
@@ -114,6 +115,7 @@ export function SearchButton() {
                                   : el.display_name}
                               </span>
                             </Button>
+                            </DialogClose>
                           </TooltipTrigger>
 
                           <TooltipContent className="max-w-xs">
