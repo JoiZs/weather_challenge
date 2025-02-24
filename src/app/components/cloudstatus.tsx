@@ -14,10 +14,10 @@ const CloudStatus = ({ rate }: Props) => {
       </div>
     );
   else if (rate < 50) {
-    <div className="flex flex-row items-center gap-2">
+   return (<div className="flex flex-row items-center gap-2">
       <CloudSun size={12} />
       <span className="text-xs">Few Cloud</span>
-    </div>;
+    </div>);
   } else
     return (
       <div className="flex flex-row items-center gap-2">
