@@ -1,9 +1,8 @@
 import React from "react";
 import { ModeToggle, SearchButton } from ".";
 
-type Props = {};
 
-const Nav = (props: Props) => {
+const Nav = () => {
   return (
     <div className="flex justify-between">
       <h1>WeatherApp_.</h1>

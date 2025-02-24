@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const ReqCityNames = async (name: string): Promise<any[]> => {
+export const ReqCityNames = async (name: string): Promise<[]> => {
   const url = `https://api.locationiq.com/v1/autocomplete?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API}&q=${name}&limit=3`;
 
   try {
@@ -10,9 +10,9 @@ export const ReqCityNames = async (name: string): Promise<any[]> => {
     });
 
     // return array of city names with 3 limit
-    return res.data as any[];
-  } catch (error) {
+    return res.data as [];
+  } catch (err) {
     // If any request errors occur: return empty array
-    return [];
+    if (err) return [];
   }
 };

@@ -2,14 +2,13 @@
 import React, { useEffect, useState } from "react";
 import useStore from "@components/lib/usestore";
 import { useLocStore } from "@components/stores/locatestore";
-import ReqWeather, { ReqForecastWeather } from "@components/lib/reqwea";
+import ReqWeather from "@components/lib/reqwea";
 import { ShiftTz } from "@components/lib/shifttz";
 import { Separator } from "@components/components/ui/separator";
 import { Badge } from "@components/components/ui/badge";
 import {
   ArrowDown,
   ArrowUp,
-  Droplet,
   Droplets,
   TrendingDown,
   Wind,
@@ -17,9 +16,7 @@ import {
 import Forecast from "./forecast";
 import CloudStatus from "./cloudstatus";
 
-type Props = {};
-
-const DisplayCard = (props: Props) => {
+const DisplayCard = () => {
   const loc = useStore(useLocStore, (state) => state.LocateCity);
   const [currTemp, setCurrTemp] = useState(null);
 

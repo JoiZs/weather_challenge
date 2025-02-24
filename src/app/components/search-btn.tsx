@@ -24,7 +24,7 @@ import { useLocStore } from "@components/stores/locatestore";
 import { useStore } from "zustand";
 
 export function SearchButton() {
-  const [tempCity, setTempCity] = useState<any[]>([]);
+  const [tempCity, setTempCity] = useState<[]>([]);
   const CityInp = useRef<HTMLInputElement>(null);
 
   const setLocCity = useStore(useLocStore, (state) => state.setLocateCity);
