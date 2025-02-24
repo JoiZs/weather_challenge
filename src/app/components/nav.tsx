@@ -1,5 +1,5 @@
 import React from "react";
-import { ModeToggle, SearchButton } from ".";
+import { ModeToggle, SearchButton, TempToggle } from ".";
 
 
 const Nav = () => {
@@ -7,6 +7,7 @@ const Nav = () => {
     <div className="flex justify-between">
       <h1>WeatherApp_.</h1>
       <div className="gap-2 flex">
+        <TempToggle />
         <ModeToggle />
         <SearchButton />
       </div>

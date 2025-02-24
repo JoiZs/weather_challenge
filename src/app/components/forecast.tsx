@@ -3,25 +3,25 @@ import { ReqForecastWeather } from "@components/lib/reqwea";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { CloudStatus } from ".";
+import { ForecastWeatherRes } from "@components/types";
 
 type Props = {
   lat: string;
   long: string;
+  temp: 'C'|'F';
 };
 
 const Forecast = (props: Props) => {
-  const [currTemp, setCurrTemp] = useState([]);
+  const [currTemp, setCurrTemp] = useState<ForecastWeatherRes["list"]| undefined>(undefined);
 
   useEffect(() => {
     if (props.long && props.lat) {
       (async () => {
-        const res = await ReqForecastWeather(props.long, props.lat);
-        console.log(res);
-
-        setCurrTemp(res.list);
+        const res = await ReqForecastWeather(props.long, props.lat, props.temp);
+        if (res) setCurrTemp(res.list);
       })();
     }
-  }, [props.lat, props.long]);
+  }, [props.lat, props.long, props.temp]);
 
   if (!currTemp || !props.long || !props.lat) return <>Hello</>;
 
@@ -36,7 +36,7 @@ const Forecast = (props: Props) => {
                   {moment(el.dt_txt).format("ddd")}
                 </span>
                 <span className="text-center text-xl">
-                  {parseInt(el.main.temp)}
+                  {el.main.temp}
                 </span>
                 <CloudStatus rate={el.clouds.all} />
               </div>

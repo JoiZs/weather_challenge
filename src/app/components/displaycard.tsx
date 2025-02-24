@@ -15,23 +15,27 @@ import {
 } from "lucide-react";
 import Forecast from "./forecast";
 import CloudStatus from "./cloudstatus";
+import { WeatherRes } from "@components/types";
 
 const DisplayCard = () => {
   const loc = useStore(useLocStore, (state) => state.LocateCity);
-  const [currTemp, setCurrTemp] = useState(null);
+  const temp = useStore(useLocStore, state=>state.temp)
+  const [currTemp, setCurrTemp] = useState<WeatherRes|null>(null);
 
   useEffect(() => {
-    if (loc) {
+    if (loc && temp) {
       (async () => {
-        const res = await ReqWeather(loc.long, loc.lat);
+        const res = await ReqWeather(loc.long, loc.lat, temp);
         console.log(res);
-
-        setCurrTemp(res);
+        if (res){
+          setCurrTemp(res);
+        }
+        
       })();
     }
-  }, [loc]);
+  }, [loc, temp]);
 
-  if (!currTemp || !loc) return <div className="flex justify-center items-center h-full"><span>Loading</span></div>
+  if (!currTemp || !loc || !temp) return <div className="flex justify-center items-center h-full"><span>Loading</span></div>
 
   return (
     <div className="flex-1 grid grid-cols-1 grid-rows-3 md:grid-cols-2 md:grid-rows-2">
@@ -40,7 +44,7 @@ const DisplayCard = () => {
        */}
       <div className="flex flex-col justify-center items-center col-span-2 md:col-span-1">
         <h1 className="text-lg font-light">{loc?.name}</h1>
-        <span className="text-4xl font-semibold">{currTemp.main.temp} F</span>
+        <span className="text-4xl font-semibold">{currTemp.main.temp} {temp}</span>
         <span className="text-sm">{ShiftTz(currTemp.timezone)}</span>
       </div>
 
@@ -48,7 +52,7 @@ const DisplayCard = () => {
         <div className="font-light italic text-sm col-span-3 gap-1 flex justify-center items-center">
           <div>
             <span className="opacity-50">feels like: </span>
-            {currTemp.main.feels_like} F,{" "}
+            {currTemp.main.feels_like} {temp},{" "}
           </div>
           <CloudStatus rate={currTemp.clouds.all} />
         </div>
@@ -88,16 +92,16 @@ const DisplayCard = () => {
         <div className="flex gap-4 flex-row justify-center">
           <div className="flex flex-row gap-2 items-center">
             <ArrowUp size={12} />
-            <span>{currTemp.main.temp_max} F</span>
+            <span>{currTemp.main.temp_max} {temp}</span>
           </div>
           <Separator orientation="vertical" />
           <div className="flex flex-row gap-2 items-center">
             <ArrowDown size={12} />
-            <span>{currTemp.main.temp_min} F</span>
+            <span>{currTemp.main.temp_min} {temp}</span>
           </div>
         </div>
       </div>
-      <Forecast lat={loc.lat} long={loc.long} />
+      <Forecast lat={loc.lat} long={loc.long} temp={temp} />
     </div>
   );
 };

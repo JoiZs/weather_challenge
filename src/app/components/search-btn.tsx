@@ -22,9 +22,10 @@ import {
 
 import { useLocStore } from "@components/stores/locatestore";
 import { useStore } from "zustand";
+import { CityNameRes } from "@components/types";
 
 export function SearchButton() {
-  const [tempCity, setTempCity] = useState<[]>([]);
+  const [tempCity, setTempCity] = useState<CityNameRes[]>([]);
   const CityInp = useRef<HTMLInputElement>(null);
 
   const setLocCity = useStore(useLocStore, (state) => state.setLocateCity);
@@ -32,7 +33,7 @@ export function SearchButton() {
   const CityAutoCompleteHandler = async () => {
     const name = CityInp.current!.value;
     const res = await ReqCityNames(name);
-    setTempCity(res);
+    if (res) setTempCity(res);
   };
 
   return (

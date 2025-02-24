@@ -9,7 +9,9 @@ type LocateCity = {
 
 interface LocStoreInterface {
   LocateCity: LocateCity;
+  temp: "C"| "F",
   setLocateCity: (nc: LocateCity) => void;
+  updateTemp: (nt: 'C'|'F')=>void
 }
 
 export const useLocStore = create(
@@ -19,6 +21,12 @@ export const useLocStore = create(
         name: "New York",
         lat: "40.730610",
         long: "-73.935242",
+      },
+      temp:"F",
+      updateTemp:(nt: 'C'|'F')=>{
+        set({
+          temp:nt
+        })
       },
       setLocateCity: (newCity: LocateCity) =>
         set({
